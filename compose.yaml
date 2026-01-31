@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres-data-development:/var/lib/postgresql
+    networks:
+      - laravel-development
+
+networks:
+  laravel-development:
+
+volumes:
+  postgres-data-development:
