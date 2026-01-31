@@ -2,13 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    protected $fillable = ['name', 'email', 'password'];
-    protected $hidden = ['password', 'remember_token'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token'
+    ];
 
     public function getJWTIdentifier()
     {
@@ -18,5 +27,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
     }
 }
